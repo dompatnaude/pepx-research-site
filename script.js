@@ -1,7 +1,7 @@
 // PEPX store data and cart logic
 
 const PRODUCTS = [
-  { id: 1,  name: "GLP-3RT",        price: 80,00, category: "GLPS", bestSeller: true,  img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Earbuds" },
+  { id: 1,  name: "GLP-3RT",                      price: 80,00, category: "GLPS", bestSeller: true,  img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Earbuds" },
   { id: 2,  name: "Smart Fitness Band",           price: 24.99, category: "Electronics", bestSeller: true,  img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Fitness+Band" },
   { id: 3,  name: "LED Ring Light 10-inch",       price: 19.99, category: "Electronics", bestSeller: false, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Ring+Light" },
   { id: 4,  name: "Portable Blender Bottle",       price: 22.50, category: "Home",        bestSeller: true,  img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Blender" },
