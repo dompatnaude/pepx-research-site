@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Products | PEPX</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">PEPX</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="best-sellers.html">Best Sellers</a>
+      <a href="products.html" class="active">Products</a>
+      <a href="checkout.html">Checkout <span id="cart-count">(0)</span></a>
+    </nav>
+  </header>
+
+  <div class="page-header">
+    <h1>All Products</h1>
+    <p>Browse our full catalog and find your next favorite thing.</p>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" data-category="all">All</button>
+    <button class="filter-btn" data-category="Electronics">Electronics</button>
+    <button class="filter-btn" data-category="Home">Home</button>
+    <button class="filter-btn" data-category="Accessories">Accessories</button>
+  </div>
+
+  <div id="products-grid" class="product-grid"></div>
+
+  <footer>&copy; 2026 PEPX. All rights reserved.</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
