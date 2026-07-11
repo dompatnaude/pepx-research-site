@@ -342,33 +342,21 @@ position: relative;
 padding: 8px 0;
 border-top: 1px solid rgba(255,255,255,0.1);
 display: flex;
-}
-
-.ticker-track {
-display: inline-flex;
-animation-name: ticker-enter, ticker-scroll;
-animation-duration: 1.2s, 10s;
-animation-timing-function: ease-out, linear;
-animation-iteration-count: 1, infinite;
-animation-fill-mode: forwards, none;
-animation-delay: 0s, 1.2s;
+justify-content: center;
 }
 
 .ticker-item {
 display: inline-block;
-padding: 0 60px;
 font-size: 14px;
 font-weight: 700;
 letter-spacing: 0.5px;
 white-space: nowrap;
+animation: ticker-cycle 5.5s ease-in-out infinite;
 }
 
-@keyframes ticker-enter {
-from { transform: translateX(100vw); }
-to { transform: translateX(0); }
-}
-
-@keyframes ticker-scroll {
-0% { transform: translateX(0); }
-100% { transform: translateX(-33.3333%); }
+@keyframes ticker-cycle {
+0% { transform: translateX(100vw); }
+15% { transform: translateX(0); }
+85% { transform: translateX(0); }
+100% { transform: translateX(-100vw); }
 }
