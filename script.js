@@ -1,18 +1,23 @@
 // PEPX store data and cart logic
 
 const PRODUCTS = [
-  { id: 1,  name: "GLP-3RT",                      price: 80.00, category: "GLPS", bestSeller: true,  img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Earbuds" },
-  { id: 2,  name: "Smart Fitness Band",           price: 24.99, category: "Electronics", bestSeller: true,  img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Fitness+Band" },
-  { id: 3,  name: "LED Ring Light 10-inch",       price: 19.99, category: "Electronics", bestSeller: false, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Ring+Light" },
-  { id: 4,  name: "Portable Blender Bottle",       price: 22.50, category: "Home",        bestSeller: true,  img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Blender" },
-  { id: 5,  name: "Memory Foam Neck Pillow",       price: 17.99, category: "Home",        bestSeller: false, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Neck+Pillow" },
-  { id: 6,  name: "Minimalist Wall Clock",         price: 15.00, category: "Home",        bestSeller: false, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Wall+Clock" },
-  { id: 7,  name: "Adjustable Phone Stand",        price: 12.99, category: "Accessories", bestSeller: true,  img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Phone+Stand" },
-  { id: 8,  name: "Magnetic Cable Organizer Set",  price: 9.99,  category: "Accessories", bestSeller: false, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Cable+Set" },
-  { id: 9,  name: "Insulated Travel Mug",          price: 18.99, category: "Accessories", bestSeller: false, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Travel+Mug" },
-  { id: 10, name: "Compact Mini Projector",        price: 59.99, category: "Electronics", bestSeller: true,  img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Projector" },
-  { id: 11, name: "Reusable Silicone Food Bags",   price: 14.99, category: "Home",        bestSeller: false, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Food+Bags" },
-  { id: 12, name: "Foldable Laptop Stand",         price: 21.99, category: "Accessories", bestSeller: false, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Laptop+Stand" }
+  { id: 1, name: "Wireless Earbuds Pro", price: 79.99, category: "GLPS", bestSeller: true, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Earbuds" },
+  { id: 2, name: "Compact Mini Projector", price: 59.99, category: "GLPS", bestSeller: true, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Projector" },
+  { id: 3, name: "Magnetic Cable Organizer Set", price: 9.99, category: "GLPS", bestSeller: false, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Cable+Set" },
+  { id: 4, name: "Foldable Laptop Stand", price: 21.99, category: "GLPS", bestSeller: false, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Laptop+Stand" },
+  { id: 5, name: "Minimalist Wall Clock", price: 15.00, category: "GLPS", bestSeller: false, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Wall+Clock" },
+  { id: 6, name: "Smart Fitness Band", price: 24.99, category: "Muscle Building", bestSeller: true, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Fitness+Band" },
+  { id: 7, name: "Portable Blender Bottle", price: 22.50, category: "Muscle Building", bestSeller: true, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Blender" },
+  { id: 8, name: "Insulated Travel Mug", price: 18.99, category: "Muscle Building", bestSeller: false, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Travel+Mug" },
+  { id: 9, name: "Resistance Bands Set", price: 16.99, category: "Muscle Building", bestSeller: false, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Resistance+Bands" },
+  { id: 10, name: "Adjustable Dumbbell Set", price: 89.99, category: "Muscle Building", bestSeller: true, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Dumbbells" },
+  { id: 11, name: "LED Ring Light 10-inch", price: 19.99, category: "Looks", bestSeller: false, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Ring+Light" },
+  { id: 12, name: "Memory Foam Neck Pillow", price: 17.99, category: "Looks", bestSeller: false, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Neck+Pillow" },
+  { id: 13, name: "Reusable Silicone Food Bags", price: 14.99, category: "Looks", bestSeller: false, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Food+Bags" },
+  { id: 14, name: "Adjustable Phone Stand", price: 12.99, category: "Looks", bestSeller: true, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Phone+Stand" },
+  { id: 15, name: "Compact Makeup Mirror", price: 24.99, category: "Looks", bestSeller: false, img: "https://placehold.co/300x300/1a1a2e/ffffff?text=Makeup+Mirror" },
+  
+
 ];
 
 const CART_KEY = "pepx_cart";
