@@ -125,6 +125,26 @@ function setupFilters() {
   });
 }
 
+function getCartSummary() {
+  const cart = getCart();
+  const lines = [];
+  let subtotal = 0;
+
+  cart.forEach(item => {
+    const product = PRODUCTS.find(p => p.id === item.id);
+    if (!product) return;
+    const lineTotal = product.price * item.qty;
+    subtotal += lineTotal;
+    lines.push(product.name + " | Qty: " + item.qty + " | $" + product.price.toFixed(2) + " each | $" + lineTotal.toFixed(2) + " total");
+  });
+
+  const shipping = subtotal > 0 ? 4.99 : 0;
+  const tax = subtotal * 0.07;
+  const total = subtotal + shipping + tax;
+
+  return { lines, subtotal, shipping, tax, total };
+}
+
 function renderCheckout() {
   const container = document.getElementById("checkout-items");
   const totalsContainer = document.getElementById("checkout-totals");
@@ -139,12 +159,10 @@ function renderCheckout() {
     return;
   }
 
-  let subtotal = 0;
   cart.forEach(item => {
     const product = PRODUCTS.find(p => p.id === item.id);
     if (!product) return;
     const lineTotal = product.price * item.qty;
-    subtotal += lineTotal;
 
     const row = document.createElement("div");
     row.className = "cart-item";
@@ -157,31 +175,67 @@ function renderCheckout() {
     container.appendChild(row);
   });
 
-  const shipping = subtotal > 0 ? 4.99 : 0;
-  const tax = subtotal * 0.07;
-  const total = subtotal + shipping + tax;
+  const summary = getCartSummary();
 
   totalsContainer.innerHTML =
-    '<div class="row"><span>Subtotal</span><span>$' + subtotal.toFixed(2) + "</span></div>" +
-    '<div class="row"><span>Shipping</span><span>$' + shipping.toFixed(2) + "</span></div>" +
-    '<div class="row"><span>Estimated Tax</span><span>$' + tax.toFixed(2) + "</span></div>" +
-    '<div class="row total"><span>Total</span><span>$' + total.toFixed(2) + "</span></div>";
+    '<div class="row"><span>Subtotal</span><span>$' + summary.subtotal.toFixed(2) + "</span></div>" +
+    '<div class="row"><span>Shipping</span><span>$' + summary.shipping.toFixed(2) + "</span></div>" +
+    '<div class="row"><span>Estimated Tax</span><span>$' + summary.tax.toFixed(2) + "</span></div>" +
+    '<div class="row total"><span>Total</span><span>$' + summary.total.toFixed(2) + "</span></div>";
 }
 
 function setupCheckoutForm() {
   const form = document.getElementById("checkout-form");
   if (!form) return;
-  form.addEventListener("submit", (e) => {
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const cart = getCart();
     if (cart.length === 0) {
       flashMessage("Your cart is empty");
       return;
     }
-    localStorage.removeItem(CART_KEY);
-    updateCartCount();
-    document.getElementById("checkout-form-wrap").style.display = "none";
-    document.getElementById("order-confirmation").style.display = "block";
+
+    const summary = getCartSummary();
+    const detailsField = document.getElementById("order-details");
+    const totalField = document.getElementById("order-total");
+    if (detailsField) detailsField.value = summary.lines.join("\n");
+    if (totalField) totalField.value = "$" + summary.total.toFixed(2);
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn ? submitBtn.textContent : "";
+    if (submitBtn) {
+      submitBtn.textContent = "Placing Order...";
+      submitBtn.disabled = true;
+    }
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" }
+      });
+
+      if (response.ok) {
+        localStorage.removeItem(CART_KEY);
+        updateCartCount();
+        document.getElementById("checkout-form-wrap").style.display = "none";
+        document.getElementById("order-confirmation").style.display = "block";
+      } else {
+        flashMessage("Something went wrong submitting your order. Please try again.");
+        if (submitBtn) {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }
+      }
+    } catch (err) {
+      flashMessage("Network error. Please try again.");
+      if (submitBtn) {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    }
   });
 }
 
