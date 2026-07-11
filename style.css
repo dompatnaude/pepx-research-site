@@ -346,7 +346,12 @@ display: flex;
 
 .ticker-track {
 display: inline-flex;
-animation: ticker-scroll 10s linear infinite;
+animation-name: ticker-enter, ticker-scroll;
+animation-duration: 1.2s, 10s;
+animation-timing-function: ease-out, linear;
+animation-iteration-count: 1, infinite;
+animation-fill-mode: forwards, none;
+animation-delay: 0s, 1.2s;
 }
 
 .ticker-item {
@@ -356,6 +361,11 @@ font-size: 14px;
 font-weight: 700;
 letter-spacing: 0.5px;
 white-space: nowrap;
+}
+
+@keyframes ticker-enter {
+from { transform: translateX(100vw); }
+to { transform: translateX(0); }
 }
 
 @keyframes ticker-scroll {
